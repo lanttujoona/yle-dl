@@ -1,0 +1,78 @@
+Apuohjelma videoiden lataamiseen Yle Areenasta
+===============================================
+Copyright (C) 2012 Antti Ajanki
+Ohjelmistolisenssi: GPLv2
+Kotisivu: http://www.iki.fi/aoa/rtmpdump-yle
+Lähdekoodi: https://github.com/aajanki/yle-dl
+
+yle-dl on apuohjelma tiedostojen lataamiseen Yle Areenasta (http://areena.yle.fi, http://ylex.yle.fi/yle-areena) ja Elävästä arkistosta (http://www.yle.fi/elavaarkisto/).
+
+## Asennus
+
+Asenna vaaditut kirjastot ja ohjelmat: rtmpdump (2.4 tai uudempi), python ja pycrypto.
+
+Debianissa ja Ubuntussa nämä löytyvät paketeista rtmpdump, python ja python-crypto.
+
+Asenna komennolla:
+    make install
+
+Komento vaatii pääkäyttäjän oikeudet (esim. Ubuntussa: sudo make install).
+
+Alkaen versiosta 1.99.9 yle-dl:stä ei enää tarvitse Ylen palvelimia varten muunneltua kopiota rtmpdump-ohjelmasta. Aikaisemman
+yle-dl-version mukana asennetun rtmpdumpin ja pluginin voi poistaa komentamalla pääkäyttäjänä
+    make uninstall-old-rtmpdump
+
+## Käyttö
+
+    yle-dl [yle-dl-valitsimet ja rtmpdump-valitsimet] URL
+
+Korvaa URL webbi-osoitteella, missä ladatavaa ohjelmaa voisi katsoa nettiselaimen kautta. URL voi olla joko Yle Areenan tai Elävän arkiston osoite.
+
+### Valitsimet:
+    --latestepisode Lataa viimeisimmän jakson sivulta.
+    --showurl       Tulostaa librtmp-yhteensopivan video-URLin, ei lataa
+                    tiedostoa.
+    --vfat          Tuota Windows-yhteensopivia tiedoston nimiä
+    --sublang lang  Lataa tekstitykset annetulla kielellä (Yle Areena)
+                    lang = fin, swe, smi, none or all (oletus)
+    --rtmpdump path Polku rtmpdump-ohjelmaan
+    --destdir dir   Aseta hakemisto mihin tiedostot tallennetaan
+
+Muut valitsimet välitetään suoraan rtmpdump:lle. Luettelon mahdollisista valitsimista (englanniksi) näkee komentamalla
+    yle-dl --help
+
+Jotta yhteyden muodostaminen onnistuisi, palomuurin täytyy sallia ulospäin menevä liikenne porteissa 80 ja 1935.
+
+Suomen ulkopuolelta ladattaessa voi olla tarpeen lisätä valitsin "-n flashu.yle.fi".
+
+## Integroiminen Firefox-selaimeen
+yle-dl on mahdollista asentaa käynnistymään suoraan Firefox-selaimesta Launchy-laajennuksen avulla.
+
+Asenna ensin yle-dl normaalisti ja sitten Launchy-laajennus Firefoxiin (http://gemal.dk/mozilla/launchy.html). Kopioi contrib/launchy.xml Firefoxin profiilihakemiston alle chrome-alihakemistoon. Hakemiston sijainnin saa selville Launchyn asetusikkunasta launchy.xml-välilehdeltä. Osoitteessa http://gemal.dk/mozilla/profile.html on lisää ohjeita hakemiston paikallistamiseen.
+
+Asennuksen jälkeen videon latauksen voi käynnistää selaimesta klikkaamalla hiiren oikealla näppäimellä Areenan videosivun linkkiä ja valitsemalla avautuvasta valikosta Launchy > Download Link with yle-dl. Lataus käynnistyy taustalla. Toistaiseksi latauksen edistymisestä (tai epäonnistumisesta) ei näy mitään tietoa käyttäjälle. Video tallennetaan kotihakemistoon.
+
+
+## YLE Areena -tuki librtmp-kirjastossa
+Tämän pluginin avulla Ylen ohjelmia voi katsoa millä tahansa librtmp-kirjstoa käyttämällä ohjelmalla kuten mplayerillä.
+
+Selvitä Areena-videon osoite komennolla "yle-dl --showurl" ja syötä komennon tulostama osoite mplayerille tai muulle librtmp-pohjaiselle ohjelmalle. Esimerkiksi:
+    mplayer "`yle-dl --showurl http://areena.yle.fi/tv/1544491`"
+
+
+## Esimerkkejä
+
+Areenan ohjelman lataaminen automaattisesti nimettävään tiedostoon:
+    yle-dl http://areena.yle.fi/tv/1544491
+
+Elävän arkiston ohjelman kaikkien jaksojen lataaminen:
+    yle-dl "http://www.yle.fi/elavaarkisto/?s=s&g=4&ag=28&t=&a=9390"
+
+Ohjelman lataaminen tiedostoon uutiset.flv:
+    yle-dl http://areena.yle.fi/tv/1544491 -o uutiset.flv
+
+Keskeytyneen latauksen jatkaminen tiedostoon uutiset.flv:
+    yle-dl http://areena.yle.fi/tv/1544491 -o uutiset.flv --resume
+
+Lataa uusimmat uutiset
+    yle-dl --latestepisode http://areena.yle.fi/?q=uutiset

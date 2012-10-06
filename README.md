@@ -15,7 +15,6 @@ Install prerequisites: rtmpdump (version 2.4 or newer), python and pycrypto.
 On Debian/Ubuntu installing packages rtmpdump, python and python-pycrypto satisfies the dependencies.
 
 To install run:
-
     make install
 
 Starting from version 1.99.9 yle-dl doesn't anymore require a modified rtmpdump or plugin. Instead, everything is now downloadable with the
