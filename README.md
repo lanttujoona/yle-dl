@@ -1,8 +1,8 @@
 rtmpdump frontend for Yle servers
 ===============================================
-Copyright (C) 2010-2012 Antti Ajanki
-License: GPLv2
-Homepage: http://www.iki.fi/aoa/rtmpdump-yle
+Copyright (C) 2010-2012 Antti Ajanki  
+License: GPLv2  
+Homepage: http://www.iki.fi/aoa/rtmpdump-yle  
 Source code: https://github.com/aajanki/yle-dl
 
 yle-dl is a rtmpdump frontend for downloading media files from the video streaming services of the Finnish national broadcasting company
