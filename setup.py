@@ -20,6 +20,9 @@ setup(name='yle-dl',
     packages=find_packages('src'),
     package_dir={'': 'src',},
     license='GPLv2',
+    install_requires=[
+        'pycrypto',
+    ],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Environment :: Console',
