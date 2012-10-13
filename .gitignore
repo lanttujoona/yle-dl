@@ -1,0 +1,8 @@
+*.py[co]
+*~
+RELEASE-VERSION
+MANIFEST
+dist
+build
+deb_dist
+yle_dl.egg-info
